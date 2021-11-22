@@ -24,5 +24,10 @@ namespace Janitor
         {
             InitializeComponent();
         }
+
+        private void CleanBin_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
