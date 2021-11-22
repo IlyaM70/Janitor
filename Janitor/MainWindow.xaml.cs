@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,11 +24,22 @@ namespace Janitor
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void CleanBin_Click(object sender, RoutedEventArgs e)
         {
-            
+            [DllImport("shell32.dll")]
+            static extern uint SHEmptyRecycleBin(IntPtr hWnd, string pszRootPath,uint dwFlags);
+            uint result = SHEmptyRecycleBin(IntPtr.Zero, null, 0);
+            if (result == 0)
+            {
+                BinStatus.Content = "Recycle bin is cleaned";
+            }
+            else
+            {
+                BinStatus.Content = "Recycle bin is already empty";
+            }
         }
     }
 }
